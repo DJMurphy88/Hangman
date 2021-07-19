@@ -23,6 +23,7 @@ public class Hangman {
         Scanner inputDevice = new Scanner(System.in);
 
         while (true) {
+            System.out.println("guess a letter.");
             String guess = inputDevice.nextLine();
             guess = guess.toUpperCase();
 
@@ -46,45 +47,41 @@ public class Hangman {
         int length = random_word.getLength();
 
         int remaining_letters = length;
-        StringBuilder displayed_word = new StringBuilder("_".repeat(length));
+        String displayed_word ="_".repeat(length);
 
         int num_wrong = 0;
         int num_guesses = 0;
         String guessed_letters = "";
 
-        draw_screen(num_wrong, num_guesses, guessed_letters, displayed_word.toString());
+        draw_screen(num_wrong, num_guesses, guessed_letters, displayed_word);
 
         while (num_wrong < 10 && remaining_letters > 0) {
 
             String guess = get_letter(guessed_letters);
+
             guessed_letters += guess;
 
             int x = word.indexOf(guess);
-                if (x != -1) {
-                    remaining_letters = length;
-                    for (int i = 0; i < length; i++) {
-                        String c = String.valueOf(word.charAt(i));
-                        if (guessed_letters.contains(c)) {
-                            displayed_word.append(c);
-                            remaining_letters -= 1;
-                        }
-                        else {
-                            num_wrong += 1;
-                        }
-                    }
-                }
-                num_guesses += 1;
-
-                System.out.println("-".repeat(100));
-                if (remaining_letters == 0) {
-                    System.out.println("You guessed the word in " +num_guesses+ " guesses.");
-                }
-                else {
-                    System.out.println("Sorry, you lost.");
-                    System.out.println("The word was: " +word);
-                }
+            System.out.println(x);
         }
-    }
+
+            num_guesses += 1;
+
+            draw_screen(num_wrong, num_guesses, guessed_letters, displayed_word);
+
+            System.out.println("G" +num_guesses);
+            System.out.println("R" +remaining_letters);
+
+            System.out.println("-".repeat(100));
+            if (remaining_letters == 0) {
+                System.out.println("You guessed the word in " +num_guesses+ " guesses.");
+            }
+            else {
+                System.out.println("Sorry, you lost.");
+                System.out.println("The word was: " +word);
+            }
+        }
+
 
     public static void main(String[] args) {
 
