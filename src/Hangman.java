@@ -4,8 +4,7 @@ public class Hangman {
 
     public static String get_word() {
 
-        String word = "TEST";
-        return word;
+        return "TEST";
     }
 
     public static String[] hidden_letters(String[] letters) {
@@ -21,14 +20,46 @@ public class Hangman {
         String displayed_word = "";
 
         for (int i =0; i <= displayed_letters.length - 1; i++) {
-           displayed_word += displayed_letters[i];
+           displayed_word += displayed_letters[i] + " ";
         }
 
         System.out.println("-".repeat(100));
         System.out.println("Word: " +displayed_word+
-                "  Guess: " +num_guesses+
+                "  Guesses: " +num_guesses+
                 "  Wrong: " +num_wrong+
                 "  Tried: " +guessed_letters);
+    }
+
+    public static void draw_gallows(int num_wrong) {
+        String head = " ";
+        String body = " ";
+        String r_arm = " ";
+        String l_arm = " ";
+        String r_leg = " ";
+        String l_leg = " ";
+
+        switch (num_wrong) {
+            case 6:
+                l_leg = "\\";
+            case 5:
+                r_leg = "/";
+            case 4:
+                l_arm = "\\";
+            case 3:
+                r_arm = "/";
+            case 2:
+                body = "|";
+            case 1:
+                head = "O";
+        }
+        System.out.println("   __");
+        System.out.println("  |/ |");
+        System.out.println("  |  "+head);
+        System.out.println("  | "+r_arm+body+l_arm);
+        System.out.println("  |  "+body);
+        System.out.println("  | "+r_leg+" "+l_leg);
+        System.out.println(" _|_______");
+        System.out.println("|/       \\|");
     }
 
     public static String get_letter(String guessed_letters) {
@@ -64,15 +95,13 @@ public class Hangman {
 
         draw_screen(num_wrong, num_guesses, guessed_letters, displayed_letters);
 
-        while (num_wrong < 10 && remaining_letters > 0) {
+        while (num_wrong < 6 && remaining_letters > 0) {
 
             String guess = get_letter(guessed_letters);
-            System.out.println(guess);
 
             boolean x = !word.contains(guess);
-            guessed_letters += guess;
+            guessed_letters += guess + " ";
 
-            System.out.println(x);
             if (!x) {
                 for (int i = 0; i <= letters.length - 1; i++) {
                     if (guess.equals(letters[i])) {
@@ -80,7 +109,6 @@ public class Hangman {
                         remaining_letters -= 1;
                     }
                 }
-
             }
             else {
                 num_wrong += 1;
@@ -106,6 +134,7 @@ public class Hangman {
 
         String again = "y";
 
+        System.out.println("-".repeat(100));
         System.out.println("HANGMAN!");
 
         while (again.equals("y")) {
