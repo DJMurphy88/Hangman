@@ -2,11 +2,6 @@ import java.util.Scanner;
 
 public class Hangman {
 
-    public static String get_word() {
-
-        return "TEST";
-    }
-
     public static String[] hidden_letters(String[] letters) {
         String[] hidden = new String[letters.length];
         for (int i = 0; i < letters.length; i++) {
@@ -23,6 +18,8 @@ public class Hangman {
            displayed_word += displayed_letters[i] + " ";
         }
 
+        System.out.println("-".repeat(100));
+        draw_gallows(num_wrong);
         System.out.println("-".repeat(100));
         System.out.println("Word: " +displayed_word+
                 "  Guesses: " +num_guesses+
@@ -83,9 +80,10 @@ public class Hangman {
     }
 
     public static void play_game() {
-        String word = get_word();
+        Word random_word = new Word();
+        String word = random_word.getWord();
 
-        String[] letters = word.split("");
+        String[] letters = (word.split(""));
         String[] displayed_letters = hidden_letters(letters);
 
         int remaining_letters = letters.length;
@@ -136,6 +134,8 @@ public class Hangman {
 
         System.out.println("-".repeat(100));
         System.out.println("HANGMAN!");
+
+        draw_gallows(6);
 
         while (again.equals("y")) {
             play_game();
