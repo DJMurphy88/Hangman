@@ -27,11 +27,6 @@ public class Word {
     public String getWord() {
         words = load_file();
         int i = (int) (Math.random() * ((words.size())));
-        String word = words.get(i);
-        return word;
+        return words.get(i);
     }
-
-    public Word () {
-
-   }
 }
